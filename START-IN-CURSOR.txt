@@ -1,0 +1,72 @@
+================================================================================
+  PLAKKEN LUKT NIET IN DE TERMINAL? Probeer dit:
+================================================================================
+
+  • Windows in veel terminals: Ctrl+Shift+V  (niet alleen Ctrl+V)
+  • Of: rechtsklik in de terminal = plakken
+  • Of: plak REGEL VOOR REGEL (soms blokkeert PowerShell meerdere regels)
+  • Of: gebruik hieronder "ZONDER PLAKKEN" — dubbelklik START.cmd of Run Task
+
+================================================================================
+  ZONDER PLAKKEN — optie A: dubbelklik in Verkenner
+================================================================================
+
+  Bestand:  START.cmd   (in deze projectmap)
+
+  Dubbelklik START.cmd → er start PowerShell + daarna de site.
+  Browser:  http://localhost:3100
+
+================================================================================
+  ZONDER PLAKKEN — optie B: Cursor menu (geen copy/paste nodig)
+================================================================================
+
+  1) Ctrl+Shift+P  (Command Palette)
+  2) Typ:  Tasks: Run Task
+  3) Kies eerst:   SentinAI: start API (port 8844)
+  4) Ctrl+Shift+P  →  Tasks: Run Task  →  SentinAI: start dashboard (port 3100)
+  5) Browser:  http://localhost:3100
+
+================================================================================
+  SENTINAI — start dit IN CURSOR (Terminal onderaan, als plakken wél werkt)
+================================================================================
+
+STAP 1 — plak dit in de terminal (één blok, daarna Enter):
+
+cd "C:\Users\maste\OneDrive\Documenten\The SentinAI Data Anonymizer"
+powershell -ExecutionPolicy Bypass -File .\Run-SentinAI.ps1
+
+  • Er opent een TWEEDE PowerShell-venster met de API.
+  • In Cursor blijft Next.js draaien.
+
+STAP 2 — open in je browser (niet poort 3000):
+
+http://localhost:3100
+
+================================================================================
+  Als het niet werkt
+================================================================================
+
+• In de terminal waar Next draait: Ctrl+C om te stoppen, daarna STAP 1 opnieuw.
+• Zorg dat geen ander project tegelijk "npm run dev" op poort 3100 gebruikt.
+
+================================================================================
+  Handmatig (als je Run-SentinAI.ps1 niet wilt)
+================================================================================
+
+Terminal A:
+cd "C:\Users\maste\OneDrive\Documenten\The SentinAI Data Anonymizer"
+powershell -ExecutionPolicy Bypass -File .\start-server.ps1
+
+Terminal B (nieuwe terminal in Cursor):
+
+  (BELANGRIJK: je moet in de map "frontend" zitten — niet alleen de projectroot)
+
+cd "C:\Users\maste\OneDrive\Documenten\The SentinAI Data Anonymizer\frontend"
+
+  (Gebruik npm.CMD — anders blokkeert Windows soms npm.ps1)
+
+npm.cmd run dev
+
+Browser: http://localhost:3100
+
+================================================================================

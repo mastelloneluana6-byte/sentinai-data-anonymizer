@@ -1,0 +1,26 @@
+<svg width="720" height="180" viewBox="0 0 720 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="210" y1="18" x2="330" y2="126" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF2D95"/>
+      <stop offset="1" stop-color="#5B5CFF"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="226" y1="34" x2="314" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF69B4"/>
+      <stop offset="1" stop-color="#6A5BFF"/>
+    </linearGradient>
+    <filter id="glow" x="165" y="0" width="220" height="150" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <path d="M270 16L334 36V79C334 107 315 130 270 146C225 130 206 107 206 79V36L270 16Z" fill="url(#g1)"/>
+    <path d="M252 45C243 45 236 50 234 58C232 67 237 74 250 79L272 88C280 91 283 95 282 99C281 104 276 107 268 107C257 107 250 103 247 95H230C234 112 247 120 268 120C287 120 299 112 301 100C303 89 297 80 282 75L260 66C252 63 250 59 251 56C252 51 257 48 264 48C274 48 279 52 281 58H298C295 44 284 35 264 35C260 35 256 36 252 37V45Z" fill="url(#g2)"/>
+  </g>
+  <text x="140" y="170" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="700" fill="#111827" letter-spacing="1.2">SPECTRA</text>
+  <text x="427" y="170" font-family="Georgia, 'Times New Roman', serif" font-size="66" fill="#111827">VAULT</text>
+  <line x1="390" y1="112" x2="390" y2="172" stroke="#111827" stroke-width="4" stroke-linecap="round"/>
+</svg>
