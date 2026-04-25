@@ -102,17 +102,17 @@ $env:SENTINAI_API_ORIGIN="http://127.0.0.1:9123"
 npm.cmd run dev
 ```
 
-## Deploy (Vercel frontend + Render API)
+## Deploy (Netlify frontend + Render API)
 
 This repo is a **monorepo**:
 
-- **Vercel** should deploy the **`frontend/`** directory as a **Next.js** project.
+- **Netlify** should deploy the **`frontend/`** directory as a **Next.js** project.
 - **Render** should deploy the **`server/`** directory as a **Python Web Service**.
 
-### Vercel (Next.js)
+### Netlify (Next.js)
 
-1. Import the GitHub repo in Vercel.
-2. Set **Root Directory** to `frontend`.
+1. Import the GitHub repo in Netlify.
+2. Set **Base Directory** to `frontend`.
 3. Add an environment variable (Production + Preview):
    - `SENTINAI_API_ORIGIN` = your Render API base URL, e.g. `https://your-api.onrender.com` (no trailing slash)
 4. Redeploy (prefer **without cache**).
@@ -124,13 +124,13 @@ This repo is a **monorepo**:
 3. **Build command:** `pip install -r requirements.txt`
 4. **Start command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
 5. Add environment variables:
-   - `SENTINAI_CORS_ORIGINS` = comma-separated list of your **exact** Vercel origins, e.g.
-     - `https://your-app.vercel.app`
+   - `SENTINAI_CORS_ORIGINS` = comma-separated list of your **exact** Netlify/browser origins, e.g.
+     - `https://sentinai-data-anonymizer.netlify.app`
      - plus any preview URLs you use (each preview URL is a separate origin)
 
 Notes:
 
-- CORS **does not support wildcards** like `*.vercel.app` for browser `Origin` headers. You must list the concrete `https://...vercel.app` origins you use (or set a single custom domain and allow only that).
+- CORS **does not support wildcards** like `*.netlify.app` for browser `Origin` headers. You must list the concrete `https://...netlify.app` origins you use (or set a single custom domain and allow only that).
 - The C++ binary may not exist on Linux cloud hosts; the API can still run, but engine mode depends on what is available in that environment.
 
 ## Lighthouse / performance posture
