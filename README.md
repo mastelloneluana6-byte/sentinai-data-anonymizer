@@ -4,6 +4,22 @@
 
 Premium **hybrid** security tooling: **Python** for orchestration (FastAPI, validation, AI) and **C++** for performance-critical anonymization (regex scanning + column masking). The dashboard is a **Next.js + Tailwind** “Vibrant Luxury” experience.
 
+## Wat is dit, in gewone taal?
+
+**Kort gezegd:** dit is een demo van een **privacy- en anonymisatie-stack** voor gevoelige data (zoals namen, e-mails, telefoonnummers in spreadsheets). Het idee: je kunt bestanden **veilig voorbereiden** voordat je ze in AI-tools of analyses stopt — zodat je minder snel per ongeluk persoonsgegevens lekt.
+
+**Wat voor systeem heb je gebouwd?** Een **hybride** opstelling, zoals je die ook in echte producten ziet:
+
+- **Een web-dashboard** (modern, luxe UI) waar gebruikers het verhaal zien: upload → maskeren → export. Dat draait als **Next.js**-frontend.
+- **Een API-server** in **Python (FastAPI)** die uploads aanneemt, limieten afdwingt, en de zware klus **doorstuurt naar C++** waar het echt snel moet: het eigenlijke **scrubben/maskeren** van tekst in CSV’s.
+- **C++** als “motor”: een aparte engine (en optioneel een native Python-koppeling) voor **hoge snelheid** op grote of lastige bestanden.
+
+**Waarom zo splitsen?** Python is ideaal om snel een veilige API en productlogica te bouwen; C++ is sterk als je **performance** op de voorgrond wilt. Samen is dat een **bewuste architectuurkeuze**, niet alleen een mooie demo-UI.
+
+**Live voorbeeld:** de gepubliceerde site staat op [sentinai-data-anonymizer.netlify.app](https://sentinai-data-anonymizer.netlify.app). De backend kun je apart hosten (bijv. op Render) en koppelen via omgevingsvariabelen — zie verderop in dit document.
+
+> Dit blijft **educatieve demo-software**: goed om te leren en te tonen, maar voor echte productie heb je nog extra zaken nodig (authenticatie, audit, juridische review, enz.).
+
 ## Hybrid architecture (why this shape)
 
 - **Brain (Python / FastAPI):** HTTP API, upload handling, size limits, filename hygiene, OpenAI orchestration, CORS, observability hooks.
