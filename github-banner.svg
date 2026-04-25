@@ -1,0 +1,66 @@
+<svg width="1600" height="500" viewBox="0 0 1600 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.38" stop-color="#7c3aed"/>
+      <stop offset="0.7" stop-color="#ff2d95"/>
+      <stop offset="1" stop-color="#38bdf8"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1300 90) rotate(130) scale(360 240)">
+      <stop stop-color="#38bdf8" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 470) rotate(-22) scale(380 220)">
+      <stop stop-color="#ff2d95" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ff2d95" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="1050" y1="105" x2="1495" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.06"/>
+    </linearGradient>
+    <filter id="blur" x="950" y="45" width="620" height="430" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="500" fill="url(#bg)"/>
+  <rect width="1600" height="500" fill="url(#glow1)"/>
+  <rect width="1600" height="500" fill="url(#glow2)"/>
+
+  <g opacity="0.28">
+    <path d="M55 410C190 280 280 255 408 288C526 319 611 307 762 182" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M86 438C222 319 298 300 425 332C560 368 689 334 848 216" stroke="#ffffff" stroke-opacity="0.65" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M104 462C262 340 343 327 487 359C639 392 770 352 934 232" stroke="#ffffff" stroke-opacity="0.45" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#blur)" opacity="0.35">
+    <rect x="1007" y="104" width="500" height="300" rx="26" fill="#ffffff"/>
+  </g>
+
+  <rect x="1030" y="118" width="470" height="272" rx="24" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.35"/>
+  <rect x="1060" y="155" width="180" height="80" rx="14" fill="#ffffff" fill-opacity="0.18"/>
+  <rect x="1260" y="155" width="205" height="80" rx="14" fill="#ffffff" fill-opacity="0.14"/>
+  <rect x="1060" y="253" width="405" height="22" rx="11" fill="#ffffff" fill-opacity="0.16"/>
+  <rect x="1060" y="287" width="310" height="22" rx="11" fill="#ffffff" fill-opacity="0.12"/>
+  <rect x="1060" y="321" width="245" height="22" rx="11" fill="#ffffff" fill-opacity="0.1"/>
+
+  <g opacity="0.5" fill="#ffffff">
+    <circle cx="965" cy="105" r="3"/>
+    <circle cx="995" cy="88" r="2.4"/>
+    <circle cx="915" cy="140" r="2"/>
+    <circle cx="1510" cy="418" r="2.8"/>
+    <circle cx="1468" cy="438" r="2.2"/>
+    <circle cx="1545" cy="392" r="1.8"/>
+  </g>
+
+  <path d="M108 89C108 83.4772 112.477 79 118 79H134C139.523 79 144 83.4772 144 89V96C144 101.523 139.523 106 134 106H118C112.477 106 108 101.523 108 96V89Z" fill="#ffffff" fill-opacity="0.2"/>
+  <path d="M124 71V114" stroke="#ffffff" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round"/>
+  <path d="M103 93H145" stroke="#ffffff" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round"/>
+
+  <text x="110" y="212" fill="white" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="72" font-weight="700" letter-spacing="0.2">
+    SentinAI Hybrid Security Engine
+  </text>
+  <text x="113" y="266" fill="#E2E8F0" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="500">
+    Innovation without Exposure
+  </text>
+</svg>

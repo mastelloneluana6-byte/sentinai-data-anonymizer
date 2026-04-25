@@ -1,3 +1,5 @@
+![SentinAI Banner](./github-banner.svg)
+
 # SentinAI Hybrid Security Engine
 
 Premium **hybrid** security tooling: **Python** for orchestration (FastAPI, validation, AI) and **C++** for performance-critical anonymization (regex scanning + column masking). The dashboard is a **Next.js + Tailwind** “Vibrant Luxury” experience.
