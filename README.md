@@ -95,12 +95,43 @@ powershell -ExecutionPolicy Bypass -File .\Run-SentinAI.ps1
 
 Dat opent de API in een **nieuw** venster en start Next in je huidige venster.
 
-Rewrites proxy `/api/*` en `/process` naar `SENTINAI_API_ORIGIN` (standaard `http://127.0.0.1:8844`, zie `frontend/.env.development`). Aanpassen kan zo:
+Rewrites proxy `/api/*` en `/process` naar `SENTINAI_API_ORIGIN` (standaard `http://127.0.0.1:9123`, zie `frontend/.env.development`). Aanpassen kan zo:
 
 ```powershell
-$env:SENTINAI_API_ORIGIN="http://127.0.0.1:8844"
+$env:SENTINAI_API_ORIGIN="http://127.0.0.1:9123"
 npm.cmd run dev
 ```
+
+## Deploy (Vercel frontend + Render API)
+
+This repo is a **monorepo**:
+
+- **Vercel** should deploy the **`frontend/`** directory as a **Next.js** project.
+- **Render** should deploy the **`server/`** directory as a **Python Web Service**.
+
+### Vercel (Next.js)
+
+1. Import the GitHub repo in Vercel.
+2. Set **Root Directory** to `frontend`.
+3. Add an environment variable (Production + Preview):
+   - `SENTINAI_API_ORIGIN` = your Render API base URL, e.g. `https://your-api.onrender.com` (no trailing slash)
+4. Redeploy (prefer **without cache**).
+
+### Render (FastAPI)
+
+1. Create a **Web Service** from the same GitHub repo.
+2. Set **Root Directory** to `server`.
+3. **Build command:** `pip install -r requirements.txt`
+4. **Start command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
+5. Add environment variables:
+   - `SENTINAI_CORS_ORIGINS` = comma-separated list of your **exact** Vercel origins, e.g.
+     - `https://your-app.vercel.app`
+     - plus any preview URLs you use (each preview URL is a separate origin)
+
+Notes:
+
+- CORS **does not support wildcards** like `*.vercel.app` for browser `Origin` headers. You must list the concrete `https://...vercel.app` origins you use (or set a single custom domain and allow only that).
+- The C++ binary may not exist on Linux cloud hosts; the API can still run, but engine mode depends on what is available in that environment.
 
 ## Lighthouse / performance posture
 
