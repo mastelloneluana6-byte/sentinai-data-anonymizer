@@ -87,7 +87,7 @@ On Windows, this step usually requires **Visual Studio Build Tools (Desktop C++ 
 powershell -ExecutionPolicy Bypass -File .\start-server.ps1
 ```
 
-Defaults to **http://127.0.0.1:8844** (avoids common Windows port blocks; override with `SENTINAI_API_PORT`).
+Defaults to **https://sentinai-data-anonymizer.netlify.app** (override with `SENTINAI_API_PORT`).
 
 ### Key endpoints
 
@@ -103,7 +103,7 @@ npm install
 npm run dev
 ```
 
-Visit **http://localhost:3100** (bewust niet `3000` — die poort is vaak al bezet door een ander project).
+Visit **https://sentinai-data-anonymizer.netlify.app**.
 
 **Snelste start (Windows):** dubbelklik of run vanaf de projectroot:
 
