@@ -6,7 +6,9 @@ import os
 import re
 from pathlib import Path
 
-MAX_CSV_BYTES = int(os.getenv("SENTINAI_MAX_CSV_MB", "10")) * 1024 * 1024
+MAX_UPLOAD_BYTES = int(os.getenv("SENTINAI_MAX_CSV_MB", "10")) * 1024 * 1024
+# Backward-compatible alias used in older code paths.
+MAX_CSV_BYTES = MAX_UPLOAD_BYTES
 ALLOWED_SUFFIX = ".csv"
 _SAFE_NAME = re.compile(r"^[a-zA-Z0-9._()\- ]+$")
 

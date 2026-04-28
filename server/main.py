@@ -72,8 +72,11 @@ async def _read_upload_bytes(file: UploadFile) -> bytes:
         if not chunk:
             break
         total += len(chunk)
-        if total > security.MAX_CSV_BYTES:
-            raise HTTPException(status_code=413, detail="CSV exceeds maximum allowed size.")
+        if total > security.MAX_UPLOAD_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail="Upload exceeds maximum allowed size.",
+            )
         chunks.append(chunk)
     return b"".join(chunks)
 
@@ -146,7 +149,7 @@ def _text_to_csv_bytes(raw: bytes) -> bytes:
     except UnicodeDecodeError:
         text = raw.decode("latin-1")
     lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-    rows = [{"Content": ln} for ln in lines]
+    rows = [{"Content": ln} for ln in lines] or [{"Content": "[No text content detected]"}]
     return _rows_to_csv_bytes(rows)
 
 
@@ -157,16 +160,21 @@ def _tsv_to_csv_bytes(raw: bytes) -> bytes:
         text = raw.decode("latin-1")
     reader = csv.DictReader(io.StringIO(text), delimiter="\t")
     rows = [dict(r) for r in reader]
+    if not rows:
+        rows = [{"Content": "[No tabular rows detected in TSV]"}]
     return _rows_to_csv_bytes(rows)
 
 
 def _xlsx_to_csv_bytes(raw: bytes) -> bytes:
-    wb = load_workbook(filename=io.BytesIO(raw), read_only=True, data_only=True)
+    try:
+        wb = load_workbook(filename=io.BytesIO(raw), read_only=True, data_only=True)
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Invalid spreadsheet file: {exc}") from exc
     ws = wb.active
     it = ws.iter_rows(values_only=True)
     header_row = next(it, None)
     if not header_row:
-        raise HTTPException(status_code=400, detail="Spreadsheet is empty.")
+        return _rows_to_csv_bytes([{"Content": "[Spreadsheet is empty]"}])
     headers = [str(h) if h is not None and str(h).strip() else f"Column{i+1}" for i, h in enumerate(header_row)]
     rows: list[dict[str, Any]] = []
     for values in it:
@@ -180,23 +188,38 @@ def _xlsx_to_csv_bytes(raw: bytes) -> bytes:
                 row_dict[headers[i]] = val
         if has_data:
             rows.append(row_dict)
+    if not rows:
+        rows = [{"Content": "[No data rows detected in spreadsheet]"}]
     return _rows_to_csv_bytes(rows)
 
 
 def _docx_to_csv_bytes(raw: bytes) -> bytes:
-    doc = Document(io.BytesIO(raw))
+    try:
+        doc = Document(io.BytesIO(raw))
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Invalid DOCX file: {exc}") from exc
     lines = [p.text.strip() for p in doc.paragraphs if p.text and p.text.strip()]
-    rows = [{"Content": ln} for ln in lines]
+    rows = [{"Content": ln} for ln in lines] or [{"Content": "[No readable text detected in DOCX]"}]
     return _rows_to_csv_bytes(rows)
 
 
 def _pdf_to_csv_bytes(raw: bytes) -> bytes:
-    reader = PdfReader(io.BytesIO(raw))
+    try:
+        reader = PdfReader(io.BytesIO(raw))
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Invalid PDF file: {exc}") from exc
     rows: list[dict[str, Any]] = []
     for idx, page in enumerate(reader.pages, start=1):
         text = (page.extract_text() or "").strip()
         if text:
             rows.append({"Page": idx, "Content": text.replace("\n", " ")})
+    if not rows:
+        rows = [
+            {
+                "Page": 1,
+                "Content": "[No extractable text found in PDF (possibly scanned/image-only document)]",
+            }
+        ]
     return _rows_to_csv_bytes(rows)
 
 
